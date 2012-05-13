@@ -1,0 +1,32 @@
+<div class="wrapper">
+<%= stylesheet_link_tag 'Style1' %>
+<p id="notice"><%= notice %></p>
+
+<%= link_to "Strona główna", root_url %>
+<% if !current_user.blank?%>
+
+<p>Witaj <%= current_user.name %> <%= link_to "Wyloguj się", signout_path, :class => "signout" %>
+</p><%end%>	
+
+<h1>Photo</h1>
+  <p id="fortuna">Nazwa zdjęcia:<%= @photo.name %></p>
+<p><%= image_tag @photo.image %></p>
+<% if !current_user.blank? %>    
+<% if current_user.id == @photo.user_id %><%= link_to "Usuń zdjęcie", {:controller => :photos,
+      :action => 'destroy', :id => @photo.id, :class => "TutajWstawiamyNazwęKlasy" }, :method => :delete %><%end%><%end%>
+<p> Dodane przez:<%= @user.name %></p>
+<%= paginate @comments %> 
+    <% @comments.each do |comm| %>
+   
+    <table id="comment">
+    <tr> <hr></tr>
+     <tr><td>Dodane przez: <span class="user"><%= comm.user.name %> </span><%= comm.created_at %> </td></tr>
+     <tr id="comment"><td id="comment"><%= comm.content %> </td></tr>
+     </table>
+<% end %>
+
+<%= render 'comment' %>
+    <% session['return-to'] = request.fullpath %>
+
+
+

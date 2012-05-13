@@ -1,0 +1,13 @@
+<p> <%= link_to "Strona główna", root_url %> </P>
+<p>Zdjęcia użytkownia <%= @user.name %></p>
+<%= paginate @photos %> 
+    <ul>
+<% @photos.each do |photo| %>
+
+    <li>
+   <%= link_to image_tag(photo.image), photo %>
+ </li>
+
+<% end %>
+</ul>
+    
